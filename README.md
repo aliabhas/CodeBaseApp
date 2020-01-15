@@ -1,4 +1,5 @@
 # CodeBaseApp
+
 This project follows the MVVM Architecture with Databinding, Dagger2, RXJava, Room and Navigation component
 Project based on 3 Screens: 
 When application launches we'll have a list of images and details regarding account and category which those images fall in, on launch of application first category we display is "fruits"
