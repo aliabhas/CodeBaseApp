@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@+id/homeDest">
+
+    <fragment
+        android:id="@+id/homeDest"
+        android:name="aliabbas.com.codebaseapp.ui_screens.fragments.pixabay_scrren.home.PixaBaySearchImagesFrag"
+        android:label="@string/home_screen"
+        tools:layout="@layout/pixa_bay_images_screen">
+<!--
+        <action
+            android:id="@+id/detailAction"
+            app:destination="@id/detailFragment">
+            &lt;!&ndash;
+                        <argument android:name="uri"
+                            app:argType="string"
+                            app:nullable="true"
+                            android:defaultValue="null"/>
+            &ndash;&gt;
+        </action>
+-->
+        <action
+            android:id="@+id/papu"
+            app:destination="@id/my_dialog">
+            <!--
+                        <argument android:name="uri"
+                            app:argType="string"
+                            app:nullable="true"
+                            android:defaultValue="null"/>
+            -->
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="aliabbas.com.codebaseapp.ui_screens.fragments.pixabay_scrren.detail.PixaBayImagesDetailFrag"
+        android:label="@string/detail_screen"
+        tools:layout="@layout/pixabay_detail_screen">
+
+        <argument
+            android:name="uri"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="hitsModel"
+            app:argType="aliabbas.com.codebaseapp.models.pixabaymodels.Hits" />
+
+
+    </fragment>
+    <dialog
+        android:id="@+id/my_dialog"
+        android:name="aliabbas.com.codebaseapp.ui_screens.dialogs.bottom_sheet_dialog.DetailConfirmationBottomSheetDialog"
+        tools:layout="@layout/botton_sheet_dialog_screen">
+        <action
+            android:id="@+id/detailAction"
+            app:destination="@id/detailFragment">
+            <!--
+                        <argument android:name="uri"
+                            app:argType="string"
+                            app:nullable="true"
+                            android:defaultValue="null"/>
+            -->
+        </action>
+
+        <!--
+                <argument
+                    android:name="hitsModel"
+                    app:argType="aliabbas.com.codebaseapp.models.pixabaymodels.Hits" />
+        -->
+    </dialog>
+
+
+</navigation>
