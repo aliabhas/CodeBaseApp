@@ -11,13 +11,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
-import androidx.transition.TransitionInflater
-import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 /**
  * Created By Ali Abbas
+ * This fragment is used to display the details of Image that we selected
+ * in screen previous
  */
 public class PixaBayImagesDetailFrag @Inject constructor() : DaggerFragment() {
     var pixaBayImagesScreenBinding: PixabayDetailScreenBinding? = null
@@ -33,19 +33,25 @@ public class PixaBayImagesDetailFrag @Inject constructor() : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //Setting up the screen title
         activity!!.setTitle(R.string.detail_screen)
+        //Binding the view to relevant DataBinding Object
         pixaBayImagesScreenBinding =
             DataBindingUtil.inflate(inflater, R.layout.pixabay_detail_screen, container, false)
+        //Setting up the specific ViewModel
         pixaDetailViewModel =
             ViewModelProviders.of(this).get(
                 PixaBayDetailViewModel::class.java
             )
+        //Setting up the Image details with the ViewModel
         pixaDetailViewModel!!.setUpDataForAccount(args.hitsModel)
+        //Start observing the the Image Detail Object
+        //For more info see function decleration
         pixaDetailViewModel!!.getHitsModel().observe(this, Observer {
             System.out.println("")
             pixaBayImagesScreenBinding!!.viewModel = pixaDetailViewModel
         })
-        //pixaBayImagesScreenBinding!!.viewModel = pixaDetailViewModel
+        //Binding the lifecycle with the view
         pixaBayImagesScreenBinding!!.lifecycleOwner = this
         return pixaBayImagesScreenBinding!!.root
     }
