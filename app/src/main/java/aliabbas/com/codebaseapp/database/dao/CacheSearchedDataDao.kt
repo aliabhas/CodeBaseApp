@@ -24,7 +24,7 @@ public abstract class CacheSearchedDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract fun insertCacheResult(lstHints: List<Hits>)
 
-    @Query("Select * from Hits Where searchedQuery=:searchedQuery")
+    @Query("Select * from Hits Where tags LIKE :searchedQuery")
     abstract fun getCacheData(searchedQuery: String): Single<List<Hits>>
 
 

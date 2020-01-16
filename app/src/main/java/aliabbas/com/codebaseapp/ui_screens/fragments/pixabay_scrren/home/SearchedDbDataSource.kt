@@ -16,9 +16,10 @@ class SearchedDbDataSource @Inject constructor(var activity: Activity) {
 
 
     public fun getSearchDataFromDb(singleObserver: SingleObserver<Any>, searchedQuery: String) {
+        val searchedLikeString ="%"+searchedQuery+"%"
         AppDatabase.getAppDatabase(activity)
             .getCacheSearchedDataDao()
-            .getCacheData(searchedQuery)
+            .getCacheData(searchedLikeString)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(singleObserver)

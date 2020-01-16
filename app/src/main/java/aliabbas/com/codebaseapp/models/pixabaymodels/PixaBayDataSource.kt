@@ -105,9 +105,6 @@ class PixaBayDataSource @Inject constructor(
             searchedCache.searchedString = searchedQuery
             AppDatabase.getAppDatabase(context).getCacheSearchedDataDao()
                 .insertCacheData(searchedCache)
-            lstHints.forEach {
-                it.searchedQuery = searchedQuery
-            }
             AppDatabase.getAppDatabase(context).getCacheSearchedDataDao()
                 .insertCacheResult(lstHints)
         }

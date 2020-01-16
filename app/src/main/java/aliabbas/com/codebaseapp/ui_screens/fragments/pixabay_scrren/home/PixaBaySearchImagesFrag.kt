@@ -94,6 +94,9 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
                     }
                 }
             })
+        pixaBayViewModel.getSearchedData().observe(this, Observer {
+            print("")
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
