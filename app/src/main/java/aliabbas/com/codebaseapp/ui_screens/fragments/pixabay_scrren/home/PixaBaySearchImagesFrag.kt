@@ -93,8 +93,6 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
                         pixaBayViewModel.setRequestFailureStatus(true)
                     }
                 }
-
-
             })
     }
 
