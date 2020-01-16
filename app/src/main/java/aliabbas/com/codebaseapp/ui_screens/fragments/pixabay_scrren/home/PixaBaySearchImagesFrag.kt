@@ -24,9 +24,16 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
     var pixaBayImagesScreenBinding: PixaBayImagesScreenBinding? = null
     private var searchView: SearchView? = null
 
+    /**
+     * ViewModelFactory this will help in Injecting the Dependencies
+     * in ViewModel
+     */
     @Inject
     @JvmField
     var viewModelFactory: ViewModelFactory? = null
+
+    //Injecting an object for Adapter associated with the recyclerview
+    //to display the item
     @Inject
     @JvmField
     var pixaBaySearchAdapter: PixaBaySearchAdapter? = null
@@ -39,7 +46,6 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
             ViewModelProviders.of(this, viewModelFactory).get<PixaBayImagesViewModel>(
                 PixaBayImagesViewModel::class.java
             )
-        System.out.println("")
     }
 
     override fun onCreateView(

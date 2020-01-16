@@ -20,8 +20,11 @@ import javax.inject.Inject
  * in screen previous
  */
 public class PixaBayImagesDetailFrag @Inject constructor() : DaggerFragment() {
+    //Databinding object
     var pixaBayImagesScreenBinding: PixabayDetailScreenBinding? = null
+    //Argument set for the current Fragment, that has set by the previous screens
     val args: PixaBayImagesDetailFragArgs by navArgs()
+    //ViewModel for the specific screen
     var pixaDetailViewModel: PixaBayDetailViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

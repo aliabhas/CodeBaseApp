@@ -19,17 +19,22 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * Created By Ali Abbas on on 15,January,2020
- * This Class is used for
+ * This Class is BottonSheet Dialog
  *
  */
 class DetailConfirmationBottomSheetDialog : BottomSheetDialogFragment() {
+    //Allowing app to move to the next detail screen
     var OPTION_PROCEED_CLICKED = 1
+    //Dismiss dialog and not allowing to move to the next detail screen
     var OPTION_DISMISS_CLICKED = 2
+    //ViewModel related to Dialog
     lateinit var bottomSheetViewModel: BottomSheetViewModel
+    //Binding related to the particular view
     var bottomSheetViewBinding: BottonSheetDialogScreenBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Setting up the viewmodel for the particular Dialog
         bottomSheetViewModel =
             ViewModelProviders.of(this).get(
                 BottomSheetViewModel::class.java
@@ -41,10 +46,13 @@ class DetailConfirmationBottomSheetDialog : BottomSheetDialogFragment() {
         @NonNull inflater: LayoutInflater, @Nullable container: ViewGroup?,
         @Nullable savedInstanceState: Bundle?
     ): View? {
+        //Binding databinding object to the specific view that we are inflating in the dialog
         bottomSheetViewBinding =
             DataBindingUtil.inflate(inflater, R.layout.botton_sheet_dialog_screen, container, false)
+        //Setting up the viewmodel of dialog
         bottomSheetViewBinding!!.viewModel = bottomSheetViewModel
 
+        //Returning the view
         return bottomSheetViewBinding!!.root
     }
 
@@ -52,16 +60,33 @@ class DetailConfirmationBottomSheetDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         clickListenerEvent()
     }
+
+    /**
+     * Implementing the clicklistener
+     * We are getting the callback with the help of Databinding
+     * onclick callback, that we have implemented in ViewModel from there with the help of
+     * LiveData onchange event calls and in obserever we have define our logic
+     * Means,
+     * if user user has pressed Yes -> Navigate to detail screen
+     * if user user has pressed No -> Simply Dismiss the dialog
+     *
+     */
     fun clickListenerEvent() {
         bottomSheetViewModel.userEventObserver.observe(this, Observer {
             when (it) {
+                //User pressed yes SO NAVIGATE to detail screen
+                //Yes option selected
+                //See the declaration for more detail
                 OPTION_PROCEED_CLICKED -> {
+                    //Getting the data from bundle
                     val model = arguments?.getParcelable<Hits>("hitModel")
+                    //Setting up the bindles for the next screen
                     val action =
                         DetailConfirmationBottomSheetDialogDirections.detailAction(
                             uri = "",
                             hitsModel = model!!
                         )
+                    //Navigating to the detail screen
                     findNavController().navigate(action)
                 }
             }
