@@ -5,7 +5,7 @@ import android.os.Bundle
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity @Inject constructor(): DaggerAppCompatActivity() {
+class HomeActivity @Inject constructor(): DaggerAppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

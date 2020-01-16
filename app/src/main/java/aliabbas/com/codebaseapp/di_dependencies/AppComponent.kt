@@ -2,6 +2,7 @@ package aliabbas.com.codebaseapp.di_dependencies
 
 import aliabbas.com.codebaseapp.AndroidApplication
 import aliabbas.com.codebaseapp.di_dependencies.app_dependencies.ActivityBindingModule
+import aliabbas.com.codebaseapp.di_dependencies.app_dependencies.ApiServiceModule
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
@@ -23,7 +24,7 @@ import javax.inject.Singleton
  * // and location of subcomponents.
  */
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, ActivityBindingModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, ApiServiceModule::class,ActivityBindingModule::class])
 interface AppComponent : AndroidInjector<AndroidApplication> {
     // Gives us syntactic sugar. we can then do DaggerAppComponent.builder().application(this).build().inject(this);
 // never having to instantiate any modules or say which module we are passing the application to.

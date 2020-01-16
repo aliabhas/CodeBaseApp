@@ -24,6 +24,7 @@ import javax.inject.Singleton
 @Module
 class ApiServiceModule {
     @get:Provides
+    @Singleton
     val requestHeader: OkHttpClient
         get() {
             val MULTIPART_FORM = "multipart/form-dat"
@@ -44,6 +45,7 @@ class ApiServiceModule {
         }
 
     @Provides
+    @Singleton
     fun provideRetrofit(client: OkHttpClient?): Api {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -59,6 +61,7 @@ class ApiServiceModule {
     }
 
     @Provides
+    @Singleton
     fun getRepository(apiCallInterface: Api?): AppServiceBuilder {
         return AppServiceBuilder(apiCallInterface!!)
     }

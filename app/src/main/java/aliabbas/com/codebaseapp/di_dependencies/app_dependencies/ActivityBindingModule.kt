@@ -1,6 +1,6 @@
 package aliabbas.com.codebaseapp.di_dependencies.app_dependencies
 
-import aliabbas.com.codebaseapp.activity.MainActivity
+import aliabbas.com.codebaseapp.activity.HomeActivity
 import aliabbas.com.codebaseapp.di_dependencies.app_scopes.ActivityScoped
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -11,7 +11,10 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module
 abstract class ActivityBindingModule {
+    //This will allow the HomeActivity to inject the dependencies
+    //
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [MainActivityRefMod::class, ApiServiceModule::class, FragmentBindingModule::class]) //Used to inject the activity object.
-    abstract fun mainActivityDependency(): MainActivity?
+    @ContributesAndroidInjector(modules = [HomeActivityRefMod::class,
+        FragmentBindingModule::class]) //Used to inject the activity object.
+    abstract fun mainActivityDependency(): HomeActivity
 }
