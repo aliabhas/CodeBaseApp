@@ -1,6 +1,5 @@
 package aliabbas.com.codebaseapp.database.dao
 
-import aliabbas.com.codebaseapp.database.entities.SearchedCache
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
@@ -11,7 +10,7 @@ import androidx.room.Query
  *
  */
 @Dao
-public abstract class SearchedDetailsDao {
+abstract class SearchedDetailsDao {
 
     @Query("Select searchedString from SearchedCache")
     abstract fun getCacheData(): LiveData<List<String>>

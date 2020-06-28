@@ -21,30 +21,29 @@ import javax.inject.Inject
  * This Class is used for
  *
  */
+@Suppress("UNCHECKED_CAST")
 class PixaBayDataSource @Inject constructor(
-    val context: Activity, val searchedCacheRef: SearchedDbDataSource
+    private val context: Activity, private val searchedCacheRef: SearchedDbDataSource
 ) {
     val DATA_FROM_SERVICE = 1
     val DATA_FROM_DATABASE = 2
 
-    var searchedCacheLiveData: LiveData<List<SearchedCache>> = MutableLiveData()
-
-    public fun getCacheData(): LiveData<List<String>> {
+    fun getCacheData(): LiveData<List<String>> {
         return AppDatabase.getAppDatabase(context)
             .getSearchedDetailsDao()
             .getCacheData()
     }
 
-    public fun getSearchedResult(
+    fun getSearchedResult(
         appServiceBuilder: AppServiceBuilder,
         searchedQuery: String,
-        lstOfSearcehReults: LiveData<List<String>>
+        listOfSearchedResult: LiveData<List<String>>
     ): MutableLiveData<ImagesSearchedSealed> {
-        var mutableSearchedData:
+        val mutableSearchedData:
                 MutableLiveData<ImagesSearchedSealed> = MutableLiveData()
         if (searchedQuery.contentEquals("") ||
-            (lstOfSearcehReults.value != null
-                    && lstOfSearcehReults.value!!.indexOf(searchedQuery) >= 0)
+            (listOfSearchedResult.value != null
+                    && listOfSearchedResult.value!!.indexOf(searchedQuery) >= 0)
         ) {
             searchedCacheRef
                 .getSearchDataFromDb(
@@ -80,28 +79,29 @@ class PixaBayDataSource @Inject constructor(
                         val searchedDetails = any as SearchedDetails
                         mutableSearchedData.value =
                             ImagesSearchedSealed.ImagesListDetailsState(searchedDetails.hits!!)
-                        inserDataInSearchedCache(searchedQuery, searchedDetails.hits!!)
+                        insertDataInSearchedCache(searchedQuery, searchedDetails.hits!!)
                     }
                     DATA_FROM_DATABASE -> {
-                        val searchedDetails = any as List<Hits>
+                        val searchedDetails  = any as List<*>
                         mutableSearchedData.value =
-                            ImagesSearchedSealed.ImagesListDetailsState(searchedDetails)
+                            ImagesSearchedSealed.ImagesListDetailsState(searchedDetails as List<Hits>)
                     }
                 }
             }
 
             override fun onError(e: Throwable) {
-                mutableSearchedData.value = ImagesSearchedSealed.ApiFailureNoDataState("Not Data Found")
+                mutableSearchedData.value =
+                    ImagesSearchedSealed.ApiFailureNoDataState("Not Data Found")
             }
         }
     }
 
-    private fun inserDataInSearchedCache(
+    private fun insertDataInSearchedCache(
         searchedQuery: String,
         lstHints: List<Hits>
     ) {
         CoroutineScope(IO).launch {
-            var searchedCache = SearchedCache()
+            val searchedCache = SearchedCache()
             searchedCache.searchedString = searchedQuery
             AppDatabase.getAppDatabase(context).getCacheSearchedDataDao()
                 .insertCacheData(searchedCache)
@@ -110,7 +110,4 @@ class PixaBayDataSource @Inject constructor(
         }
     }
 
-    public fun getSearchedCacheLiveDatas(): LiveData<List<SearchedCache>> {
-        return searchedCacheLiveData
-    }
 }

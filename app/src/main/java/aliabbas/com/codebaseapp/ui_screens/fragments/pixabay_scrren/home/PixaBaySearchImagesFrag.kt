@@ -79,7 +79,7 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
                         pixaBaySearchAdapter?.setValues(data.lstHits, this@PixaBaySearchImagesFrag)
                         //Making view visible and invisible
                         //see relevent function declaration for more detail
-                        pixaBayViewModel.setProgressVisibilty(true)
+                        pixaBayViewModel.setProgressVisibility(true)
                         if (data.lstHits.isNotEmpty()) {
                             pixaBayViewModel.setRequestFailureStatus(false)
                         } else
@@ -89,12 +89,15 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
                     is ImagesSearchedSealed.ApiFailureNoDataState -> {
                         //Making view visible and invisible
                         //see relevent function declaration for more detail
-                        pixaBayViewModel.setProgressVisibilty(true)
+                        pixaBayViewModel.setProgressVisibility(true)
                         pixaBayViewModel.setRequestFailureStatus(true)
                     }
                 }
             })
         pixaBayViewModel.getSearchedData().observe(this, Observer {
+            print("")
+        })
+        pixaBayViewModel.getSearchedQueryString().observe(this, Observer {
             print("")
         })
     }
@@ -144,6 +147,7 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
             queryHint = getString(R.string.search_hint)
             //This is only has a numeric input type as customer code
             inputType = InputType.TYPE_CLASS_TEXT
+
         }
     }
 
@@ -153,7 +157,7 @@ class PixaBaySearchImagesFrag @Inject constructor() : DaggerFragment(),
      */
     override fun onQueryTextSubmit(query: String?): Boolean {
         //Making progressBar visible, for notifying user, that request is under process
-        pixaBayViewModel.setProgressVisibilty(false)
+        pixaBayViewModel.setProgressVisibility(false)
         //Calling the data source function from where we'll get all the details
         //related to Category trying to search
         //for more info see function declaration

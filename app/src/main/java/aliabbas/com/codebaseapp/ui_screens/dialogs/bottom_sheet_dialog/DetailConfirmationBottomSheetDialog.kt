@@ -19,14 +19,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * Created By Ali Abbas on on 15,January,2020
- * This Class is BottonSheet Dialog
+ * This Class is BottomSheet Dialog
  *
  */
 class DetailConfirmationBottomSheetDialog : BottomSheetDialogFragment() {
     //Allowing app to move to the next detail screen
-    var OPTION_PROCEED_CLICKED = 1
-    //Dismiss dialog and not allowing to move to the next detail screen
-    var OPTION_DISMISS_CLICKED = 2
+    private var OPTION_PROCEED_CLICKED = 1
     //ViewModel related to Dialog
     lateinit var bottomSheetViewModel: BottomSheetViewModel
     //Binding related to the particular view
@@ -46,10 +44,10 @@ class DetailConfirmationBottomSheetDialog : BottomSheetDialogFragment() {
         @NonNull inflater: LayoutInflater, @Nullable container: ViewGroup?,
         @Nullable savedInstanceState: Bundle?
     ): View? {
-        //Binding databinding object to the specific view that we are inflating in the dialog
+        //Binding dataBinding object to the specific view that we are inflating in the dialog
         bottomSheetViewBinding =
             DataBindingUtil.inflate(inflater, R.layout.botton_sheet_dialog_screen, container, false)
-        //Setting up the viewmodel of dialog
+        //Setting up the viewModel of dialog
         bottomSheetViewBinding!!.viewModel = bottomSheetViewModel
 
         //Returning the view
@@ -71,7 +69,7 @@ class DetailConfirmationBottomSheetDialog : BottomSheetDialogFragment() {
      * if user user has pressed No -> Simply Dismiss the dialog
      *
      */
-    fun clickListenerEvent() {
+    private fun clickListenerEvent() {
         bottomSheetViewModel.userEventObserver.observe(this, Observer {
             when (it) {
                 //User pressed yes SO NAVIGATE to detail screen
@@ -80,7 +78,7 @@ class DetailConfirmationBottomSheetDialog : BottomSheetDialogFragment() {
                 OPTION_PROCEED_CLICKED -> {
                     //Getting the data from bundle
                     val model = arguments?.getParcelable<Hits>("hitModel")
-                    //Setting up the bindles for the next screen
+                    //Setting up the bundles for the next screen
                     val action =
                         DetailConfirmationBottomSheetDialogDirections.detailAction(
                             uri = "",

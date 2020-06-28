@@ -26,14 +26,14 @@ class PixaBayImagesViewModel @Inject constructor(
     /**
      * default category that we have to search
      */
-    val defaultSearchString: String = "fruit"
+    private val defaultSearchString: String = "fruit"
     /**
      * List for getting all the data related to search user has did
      * For Example,
      * This list will hold all the data related to search = "Flower"
      * All of the imageurl's , text details etc
      */
-    var lstPixaImages: MediatorLiveData<ImagesSearchedSealed> = MediatorLiveData()
+    private var lstPixaImages: MediatorLiveData<ImagesSearchedSealed> = MediatorLiveData()
     /**
      * List for getting all the data that user have searched,
      * For Example:
@@ -42,7 +42,7 @@ class PixaBayImagesViewModel @Inject constructor(
      * this will only last till application is on active state
      *
      */
-    var lstOfSearcehReults: LiveData<List<String>> = MutableLiveData()
+    private var lstOfSearchedResult: LiveData<List<String>> = MutableLiveData()
     /**
      * This variable will be used for the state of ProgressBar
      * Visible , gone
@@ -59,25 +59,31 @@ class PixaBayImagesViewModel @Inject constructor(
      */
     var isRequestFailure: MutableLiveData<Boolean> = MutableLiveData()
 
+    var searchedQueryString: MutableLiveData<String> = MutableLiveData()
+
 
     init {
         /**
          * Keeping tract of all the searched data using live data with Room
          * like 'fruits' , 'flower' etc all the search history
          */
-        lstOfSearcehReults = pixaBayDataSource.getCacheData()
-
+        lstOfSearchedResult = pixaBayDataSource.getCacheData()
+        searchedQueryString.value = defaultSearchString
         //see function declaration for more detail
-        getPixaBayImagesData(defaultSearchString, lstOfSearcehReults)
+        getPixaBayImagesData(defaultSearchString, lstOfSearchedResult)
     }
 
 
     fun getSearchedData(): LiveData<List<String>> {
-        return lstOfSearcehReults
+        return lstOfSearchedResult
     }
 
     fun getPixaBayData(): LiveData<ImagesSearchedSealed> {
         return lstPixaImages
+    }
+
+    fun getSearchedQueryString(): LiveData<String> {
+        return searchedQueryString
     }
 
     /**
@@ -90,15 +96,17 @@ class PixaBayImagesViewModel @Inject constructor(
      */
     fun getPixaBayImagesData(
         searchedText: String,
-        lstOfSearcehReults: LiveData<List<String>>
+        listOfSearchedResults: LiveData<List<String>>
     ) {
         lstPixaImages.addSource(
             pixaBayDataSource.getSearchedResult(
                 appServiceBuilder,
-                searchedText, lstOfSearcehReults
+                searchedText, listOfSearchedResults
             )
         ) {
             lstPixaImages.value = it
+            searchedQueryString.value = searchedText
+
         }
     }
 
@@ -110,7 +118,7 @@ class PixaBayImagesViewModel @Inject constructor(
      * During Api call this will be visible, on response this will be invisible
      * and data will be visible
      */
-    fun setProgressVisibilty(viewVisibility: Boolean) {
+    fun setProgressVisibility(viewVisibility: Boolean) {
         isDataAvailable.value = viewVisibility
     }
 

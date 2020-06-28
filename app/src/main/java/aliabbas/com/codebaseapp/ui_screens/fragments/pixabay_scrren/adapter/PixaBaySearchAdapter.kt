@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 /**
  * Created by Ali Abbas
+ * Testing for the plugin updaye branch
  * This class hold the detail to display the recyclerview data
  */
 class PixaBaySearchAdapter @Inject constructor() :
