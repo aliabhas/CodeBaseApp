@@ -17,6 +17,7 @@ import javax.inject.Inject
  * Testing for the plugin updaye branch
  * Are pappu cant dance sala
  * This class hold the detail to display the recyclerview data
+ * Hello Version 1.34
  */
 class PixaBaySearchAdapter @Inject constructor() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
