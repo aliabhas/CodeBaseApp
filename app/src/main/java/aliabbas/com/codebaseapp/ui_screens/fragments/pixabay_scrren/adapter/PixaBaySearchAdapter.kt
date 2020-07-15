@@ -20,6 +20,7 @@ import javax.inject.Inject
  * Hello Version 1.34
  * Hello test new branch
  * Doing changes in master, thanks
+ * Again doing some changes
  */
 class PixaBaySearchAdapter @Inject constructor() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
