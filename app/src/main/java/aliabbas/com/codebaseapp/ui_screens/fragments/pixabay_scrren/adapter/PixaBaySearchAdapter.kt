@@ -19,6 +19,7 @@ import javax.inject.Inject
  * This class hold the detail to display the recyclerview data
  * Hello Version 1.34
  * Hello test new branch
+ * Doing changes in master, thanks
  */
 class PixaBaySearchAdapter @Inject constructor() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
